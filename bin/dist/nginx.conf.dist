@@ -1,0 +1,18 @@
+server {
+    server_name ##DOCKER_SERVERNAME##;
+    root        ##DOCKER_WEB_ROOT_DIR##;
+
+    location ~ ^/$ {
+        rewrite  ^/$  /##DOCKER_INDEX_FILE##  last;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    error_log  /var/log/nginx/##DOCKER_WEBSITE_NAME##_error.log;
+    access_log /var/log/nginx/##DOCKER_WEBSITE_NAME##_access.log;
+}

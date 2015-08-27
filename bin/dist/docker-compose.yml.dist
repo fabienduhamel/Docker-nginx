@@ -1,0 +1,13 @@
+##DOCKER_WEBSITE_NAME##_code:
+  build:          images/code
+  container_name: ##DOCKER_WEBSITE_NAME##_code
+  volumes:
+    - ./data/##DOCKER_WWW_PATH##:/var/www
+
+##DOCKER_WEBSITE_NAME##_web:
+  build:          images/web
+  container_name: ##DOCKER_WEBSITE_NAME##_web
+  volumes_from:
+    - ##DOCKER_WEBSITE_NAME##_code
+  ports:
+    - ##DOCKER_WEB_LISTENING_PORT##:80
